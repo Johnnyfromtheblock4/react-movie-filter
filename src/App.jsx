@@ -15,6 +15,8 @@ function App() {
   const [movies, setMovies] = useState(initialsMovies);
   const [filteredMovies, setFilteredMovies] = useState(movies);
   const [search, setSearch] = useState("");
+  const [newMovieTitle, setNewMovieTitle] = useState("");
+  const [newMovieGenre, setNewMovieGenre] = useState("");
 
   // // useEffect per filtrare nell'array
   // useEffect(() => {
@@ -55,7 +57,19 @@ function App() {
     }
 
     setFilteredMovies(updatedMovies);
-  }, [genre, search]);
+  }, [genre, search, movies]);
+
+  // aggiungi film
+  const addMovie = (e) => {
+    e.preventDefault();
+
+    if (newMovieTitle !== "" && newMovieGenre !== "") {
+      const copy = [...movies, { title: newMovieTitle, genre: newMovieGenre }];
+      setMovies(copy);
+      setNewMovieTitle("");
+      setNewMovieGenre("");
+    }
+  };
 
   return (
     <>
@@ -101,6 +115,27 @@ function App() {
                 );
               })}
             </ul>
+          </div>
+          <div className="col-12">
+            <form onSubmit={addMovie}>
+              <div className="d-flex">
+                <input
+                  type="text"
+                  className="form-control me-2"
+                  placeholder="Aggiungi film"
+                  value={newMovieTitle}
+                  onChange={(e) => setNewMovieTitle(e.target.value)}
+                />
+                <input
+                  type="text"
+                  className="form-control me-2"
+                  placeholder="Aggiungi titolo"
+                  value={newMovieGenre}
+                  onChange={(e) => setNewMovieGenre(e.target.value)}
+                />
+                <button className="btn btn-success">Aggiungi</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

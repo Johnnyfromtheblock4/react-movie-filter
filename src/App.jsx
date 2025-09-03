@@ -8,20 +8,28 @@ const initialsMovies = [
 ];
 
 function App() {
-  <>
-    <div className="container my-5">
-      <div className="row gy-4">
-        <div className="col-12">
-          <h1>Movies Filter</h1>
-        </div>
-        <div className="col-12">
-          <ul className="list-group ms-0">
-            {}
-          </ul>
+  return (
+    <>
+      <div className="container my-5">
+        <div className="row gy-4">
+          <div className="col-12">
+            <h1>Movies Filter</h1>
+          </div>
+          <div className="col-12">
+            <ul className="list-group ms-0">
+              {initialsMovies.map((movie, index) => {
+                return (
+                  <li key={index} className="list-group-item">
+                    {movie.title}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-  </>;
+    </>
+  );
 }
 
 export default App;

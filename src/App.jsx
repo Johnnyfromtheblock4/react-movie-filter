@@ -17,10 +17,12 @@ function App() {
   // useEffect per filtrare nell'array
   useEffect(() => {
     if (genre !== "") {
-      const selectedMovies = movies.filter((movie) => movie.genre === genre);
+      const selectedMovies = initialsMovies.filter(
+        (movie) => movie.genre === genre
+      );
       setMovies(selectedMovies);
     } else {
-      setMovies(movies);
+      setMovies(initialsMovies);
     }
   }, [genre]);
 

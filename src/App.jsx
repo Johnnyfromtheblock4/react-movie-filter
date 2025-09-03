@@ -27,6 +27,18 @@ function App() {
     }
   }, [genre]);
 
+  // filtra per titolo
+  useEffect(() => {
+    if (search != "") {
+      const selectedMovies = initialsMovies.filter(
+        (movie) => movie.title.toLowerCase().includes(search.toLowerCase())
+      );
+      setMovies(selectedMovies);
+    } else {
+      setMovies(initialsMovies);
+    }
+  }, [search]);
+
   return (
     <>
       <div className="container my-5">

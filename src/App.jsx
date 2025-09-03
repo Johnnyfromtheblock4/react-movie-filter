@@ -13,31 +13,49 @@ function App() {
   // variabile per selezionare il tipo di genere
   const [genre, setGenre] = useState("");
   const [movies, setMovies] = useState(initialsMovies);
+  const [filteredMovies, setFilteredMovies] = useState(movies);
   const [search, setSearch] = useState("");
 
-  // useEffect per filtrare nell'array
-  useEffect(() => {
-    if (genre !== "") {
-      const selectedMovies = initialsMovies.filter(
-        (movie) => movie.genre === genre
-      );
-      setMovies(selectedMovies);
-    } else {
-      setMovies(initialsMovies);
-    }
-  }, [genre]);
+  // // useEffect per filtrare nell'array
+  // useEffect(() => {
+  //   if (genre !== "") {
+  //     const selectedMovies = initialsMovies.filter(
+  //       (movie) => movie.genre === genre
+  //     );
+  //     setMovies(selectedMovies);
+  //   } else {
+  //     setMovies(initialsMovies);
+  //   }
+  // }, [genre]);
 
-  // filtra per titolo
+  // // filtra per titolo
+  // useEffect(() => {
+  //   if (search != "") {
+  //     const selectedMovies = initialsMovies.filter(
+  //       (movie) => movie.title.toLowerCase().includes(search.toLowerCase())
+  //     );
+  //     setMovies(selectedMovies);
+  //   } else {
+  //     setMovies(initialsMovies);
+  //   }
+  // }, [search]);
+
+  // ottimizzato
   useEffect(() => {
-    if (search != "") {
-      const selectedMovies = initialsMovies.filter(
-        (movie) => movie.title.toLowerCase().includes(search.toLowerCase())
-      );
-      setMovies(selectedMovies);
-    } else {
-      setMovies(initialsMovies);
+    let updatedMovies = movies;
+
+    if (genre) {
+      updatedMovies = updatedMovies.filter((movie) => movie.genre === genre);
     }
-  }, [search]);
+
+    if (search) {
+      updatedMovies = updatedMovies.filter((movie) =>
+        movie.title.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    setFilteredMovies(updatedMovies);
+  }, [genre, search]);
 
   return (
     <>
@@ -75,7 +93,7 @@ function App() {
             </div>
 
             <ul className="list-group ms-0">
-              {movies.map((movie, index) => {
+              {filteredMovies.map((movie, index) => {
                 return (
                   <li key={index} className="list-group-item">
                     {movie.title}

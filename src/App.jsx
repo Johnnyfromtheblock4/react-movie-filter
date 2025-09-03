@@ -12,7 +12,18 @@ const initialsMovies = [
 function App() {
   // variabile per selezionare il tipo di genere
   const [genre, setGenre] = useState("");
-  
+  const [movies, setMovies] = useState(initialsMovies);
+
+  // useEffect per filtrare nell'array
+  useEffect(() => {
+    if (genre !== "") {
+      const selectedMovies = movies.filter((movie) => movie.genre === genre);
+      setMovies(selectedMovies);
+    } else {
+      setMovies(movies);
+    }
+  }, [genre]);
+
   return (
     <>
       <div className="container my-5">
@@ -26,6 +37,7 @@ function App() {
               name=""
               id=""
               className="form-select my-3"
+              value={genre}
               onChange={(e) => setGenre(e.target.value)}
             >
               <option value="">Seleziona genere</option>
@@ -36,7 +48,7 @@ function App() {
             </select>
 
             <ul className="list-group ms-0">
-              {initialsMovies.map((movie, index) => {
+              {movies.map((movie, index) => {
                 return (
                   <li key={index} className="list-group-item">
                     {movie.title}

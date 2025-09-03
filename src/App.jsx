@@ -16,6 +16,13 @@ function App() {
             <h1>Movies Filter</h1>
           </div>
           <div className="col-12">
+            <select name="" id="" className="form-select my-3">
+              <option value="">Seleziona genere</option>
+              {initialsMovies.map((movie, index) => {
+                return <option value={movie.genre} key={`genre-${index}`}>{movie.genre}</option>;
+              })}
+            </select>
+
             <ul className="list-group ms-0">
               {initialsMovies.map((movie, index) => {
                 return (
